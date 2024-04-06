@@ -71,9 +71,14 @@ class TokenReq(APIView):
 ##testing dont forget to add Authorization header = Token <token>
 class Info(TokenReq):
        def get(self, request):
-        return Response({
-            "user": request.user.first_name
-        }, status=HTTP_200_OK) 
+           try:
+                isUser = request.user
+                return Response({
+                "user": request.user.first_name,
+                "email": request.user.email
+            }, status=HTTP_200_OK) 
+           except:
+               return Response("No user found matching these credentials", status=HTTP_400_BAD_REQUEST)
 
 class Log_out(TokenReq):
     def post(self, request):
