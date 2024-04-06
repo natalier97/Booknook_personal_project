@@ -27,4 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/test/', connection_test),
     path('api/v1/bookusers/', include('user_app.urls')),
+    # path('api/v1/books/', include('book_app.urls')),
 ]

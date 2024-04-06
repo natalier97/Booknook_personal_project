@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'googlebooks_app',
-    'nytimes_app',
+    'book_app',
     'shelves_app',
     'user_app',
     'rest_framework',
