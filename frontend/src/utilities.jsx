@@ -90,5 +90,30 @@ export const userLogout = async() => {
         console.log('ERROR LOGGING OUT', response)
         return false;
     }
-}
+};
+
+
+
+//////BOOK MODEL
+export const book_from_db = async() => {
+    let token = localStorage.getItem("token");
+        if (token){
+            api.defaults.headers.common["Authorization"] = `Token ${token}`
+            
+            let response = await api.get("books/user/Biscuit's Vet Visit/")
+                    
+            if (response.status = 200){
+                // console.log("USER CONFIRMED", response.data)
+                return {"img_url": response.data.img_url}
+            } else { //response != 200
+                // console.log("ERROR - user NOT CONFIRMED", response)
+                return null
+            };
+        }
+        //no token found
+         else {
+                console.log('NO TOKEN in local storage')
+                return null
+            };
+        }
 
