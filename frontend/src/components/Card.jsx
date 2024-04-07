@@ -1,5 +1,6 @@
-import { useState } from "react";
-import book_from_db from "../utilities";
+import { useEffect, useState } from "react";
+import { book_from_db, google_api_call } from "../utilities";
+import { useOutletContext } from "react-router-dom";
 
 //bootstrap stuff
 import Card from "react-bootstrap/Card";
@@ -18,6 +19,31 @@ function BookCard() {
     </Tooltip>
   );
 
+  let { user } = useOutletContext(); 
+
+  const [pic, setPic] = useState('')
+
+  useEffect(() => {
+    async function fetchData() {
+      let data;
+
+      if (user){
+      data = await book_from_db()
+      console.log("CARD-USER", data)
+      } else {
+      data = await google_api_call();
+      console.log("CARD-NO user", data);
+      }
+
+      let result = data['img_url']
+      setPic(result)
+
+    };
+    fetchData();
+
+  }, [])
+ 
+
   return (
     <>
       <Row xs={2} md={4} lg={6}>
@@ -30,7 +56,8 @@ function BookCard() {
             <Card>
               <Card.Img
                 variant="top"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Orange_and_white_tabby_cat-Portrait-Hisashi-01.jpg/1200px-Orange_and_white_tabby_cat-Portrait-Hisashi-01.jpg"
+                alt="Book Cover"
+                src={pic}
               />
 
               {/* <Card.Body>

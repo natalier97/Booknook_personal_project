@@ -16,7 +16,7 @@ def fetch_book_from_google_books_api(book_title_or_author):
         json_response = response.json()
         
         if json_response.get("items"):
-            return (json_response.get("items")[0]['volumeInfo'].get('description'))
+            return (json_response.get("items")[0]['volumeInfo']['imageLinks'].get('thumbnail'))
             # return Response([json_response.get("items")[x]['volumeInfo']['title'] for x in range(3)] )
         print(f"ERROR {json_response}")
         return None

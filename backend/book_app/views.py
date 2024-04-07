@@ -33,10 +33,11 @@ def search_db_for_book(book_title):
 ## "nonuser/<str: book_title_or_author>/"
 class Google_books(APIView):
     def get(self, request, book_title_or_author):
-        description = fetch_book_from_google_books_api(book_title_or_author)
+        new_book = {}
+        new_book['img_url'] = fetch_book_from_google_books_api(book_title_or_author)
         ##TODO need to add logic if book or author not found
-        if description:
-            return Response(description, status=HTTP_200_OK)
+        if new_book['img_url']:
+            return Response([new_book], status=HTTP_200_OK)
         else:
             return Response(status=HTTP_404_NOT_FOUND)
 
@@ -45,13 +46,14 @@ class Google_books(APIView):
 class Search_for_book(APIView):
     def get(self, request, book_title_or_author):
         book = search_db_for_book(book_title_or_author)
+        new_book = {}
         # print(f"HELLO!!!! {book}")
         if book:
             return Response(book, status=HTTP_200_OK)
         else:
-            new_book = fetch_book_from_google_books_api(book_title_or_author)
-            if new_book:
-                return Response(new_book, status=HTTP_200_OK)
+            new_book['img_url'] = fetch_book_from_google_books_api(book_title_or_author)
+            if new_book['img_url']:
+                return Response([new_book], status=HTTP_200_OK)
             else: 
                 return Response(None, status=HTTP_404_NOT_FOUND)
     
