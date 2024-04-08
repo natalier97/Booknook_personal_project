@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
 import { userLogout } from "../utilities";
@@ -11,7 +11,21 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-function NavBar({user, setUser}) {
+function NavBar({user, setUser, searchValue, setSearchValue}) {
+  let navigate = useNavigate();
+
+  function handleInput(event) {
+    setSearchValue(event.target.value)
+  };
+
+
+function navigateToBookPage(){
+  let route = `/bookPage/${searchValue}/`
+  navigate(route);
+  setSearchValue('')
+}
+
+
 
   async function handleUserLogout(){
     let loggedOut = await userLogout()
@@ -25,7 +39,9 @@ function NavBar({user, setUser}) {
     <nav>
       <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="#">BookNook</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            BookNook
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -33,22 +49,23 @@ function NavBar({user, setUser}) {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home :) </Nav.Link>
+              <Nav.Link as={Link} to="/homePage/">
+                Home :){" "}
+              </Nav.Link>
 
               <Nav.Link href="#action2">
                 {user ? user.user : "Sign Up/Log In"}{" "}
               </Nav.Link>
               <NavDropdown title="" id="navbarScrollingDropdown">
-                {user ? null : (
+                {user ? (
+                 null
+                ) : (
                   <Nav.Link as={Link} to="/">
                     Log In / Sign Up
                   </Nav.Link>
                 )}
                 {!user ? null : (
-                  <NavDropdown.Item
-                    onClick={() => handleUserLogout()}
-            
-                  >
+                  <NavDropdown.Item onClick={() => handleUserLogout()}>
                     Log Out
                   </NavDropdown.Item>
                 )}
@@ -59,9 +76,11 @@ function NavBar({user, setUser}) {
                   Something else here
                 </NavDropdown.Item> */}
               </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
+              {user ? (
+                <Nav.Link as={Link} to="/myBooksPage/:shelfName/">
+                  My Books
+                </Nav.Link>
+              ) : null}
             </Nav>
             <Form className="d-flex">
               <Form.Control
@@ -69,8 +88,12 @@ function NavBar({user, setUser}) {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={handleInput}
+                value={searchValue}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" onClick={navigateToBookPage}>
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>

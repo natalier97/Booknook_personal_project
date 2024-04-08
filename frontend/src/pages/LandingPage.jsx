@@ -9,8 +9,8 @@ function LandingPage() {
 
     return (
       <>
-        <h1>HELLLO! welcome to the page</h1>
-        <BookCard/>
+        <h1>HELLLO! welcome to the Landing page</h1>
+       
         <LoginForm />
       </>
     );
