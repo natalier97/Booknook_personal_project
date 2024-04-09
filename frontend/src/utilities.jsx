@@ -137,12 +137,11 @@ export const view_all_shelves = async () => {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
 
     let response = await api.get(`shelves/allshelves/`);
-    
+
     if ((response.status = 200)) {
-
-      console.log("view+all+shelves RESPONSE = 200", response.data);
-
+      // console.log("view+all+shelves RESPONSE = 200", response.data);
       return response.data;
+
     } else {
       //response != 200, aka no user id found
       return null;
@@ -161,19 +160,31 @@ export const view_a_shelf = async (shelf_name) => {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
 
     // /shelves/<str:shelf_name>/
-    let response = await api.get(`/shelves/${shelf_name}/`);
+    let get_response = await api.get(`/shelves/${shelf_name}/`);
 
-    if ((response.status = 200)) {
-      console.log("RESPONSE = 200", response.data[0]);
-      return response.data[0];
+    if ((get_response.status = 200)) {
+      console.log("RESPONSE = 200", get_response.data[0]);
+      return get_response.data[0];
     } else {
       //response != 200 aka no shelf found
       return null;
-    }
+    };
+
+
+
   }
+
+
+
   //no token found
   else {
     console.log("cant view A SHELF -no token in local storage");
     return null;
   }
 };
+
+
+////////////////////////////////////////
+//// ADDING/REMOVING BOOK TO A SHELF ////
+///////////////////////////////////////
+

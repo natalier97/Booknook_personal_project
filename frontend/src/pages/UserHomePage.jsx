@@ -8,22 +8,12 @@ import ShelfLinksCard from "../components/ShelfLinksCard";
 
 function UserHomePage() {
   // const [myshelves, setMyShelves] =  useState([])
-  let { user, myshelves, setMyShelves } = useOutletContext();
-
-  
-  useEffect(() =>{
- async function view_shelves() {
-   let shelves = await view_all_shelves();
-   console.log("home page shelves",shelves)
-   setMyShelves(shelves)
- };
-view_shelves()
-}, [])
+  // let { user, myshelves, setMyShelves } = useOutletContext();
 
 
   return (<>
   <h1> HOME PAGE</h1><button>BUTTON</button>
-<ShelfLinksCard shelfInfo={myshelves} />
+<ShelfLinksCard />
    </>)
 }
 

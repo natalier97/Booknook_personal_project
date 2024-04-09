@@ -12,7 +12,8 @@ book_info = {
       'api_rating': None,
       'page_count': None,
       'genre': [],
-      'img_url': None
+      'img_url': None, 
+      'isbn' : None,
 }
 
 def remove_html_tags(text):
@@ -41,6 +42,14 @@ def fetch_book_from_google_books_api(book_title_or_author):
             book_info['api_rating'] = json_info.get('averageRating')
 
             ###---------------------------EDGE CASES---------------------------------------------------
+            ##isbn 10 or 13
+            industry_identifiers = json_info['industryIdentifiers']
+            for identifier in industry_identifiers:
+                 if identifier["type"] == "ISBN_13":
+                      book_info['isbn'] = identifier["identifier"]
+                      break
+
+            
             ##api_rating missing
             if book_info['api_rating'] == None:
                 book_info['api_rating'] = json_response.get("items")[1]['volumeInfo'].get('averageRating')
@@ -63,6 +72,7 @@ def fetch_book_from_google_books_api(book_title_or_author):
             img_info = self_link_info.get('imageLinks') ##has following options {'smallThumbnail', 'thumbnail','small', 'medium', 'large'}
             book_info['img_url'] = img_info.get('small')
 
+            # book_info['isbn'] = self_link_info.get('industryIndentifiers')[0].get("identifier")
 
             ###description cleaning
             dirty_description = self_link_info.get('description')

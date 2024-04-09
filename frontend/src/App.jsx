@@ -10,11 +10,23 @@ import { api } from "./utilities";
 import axios from "axios";
 import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
+import { view_all_shelves } from "./utilities";
 
 function App() {
   const [user, setUser] = useState(useLoaderData());
   const [searchValue, setSearchValue] = useState('');
-  const [myshelves, setMyShelves] = useState([]);
+//  #[{"id", "shelf_name", "book"}. {shelf_obj}];
+  const [myshelves, setMyShelves] = useState([]); 
+
+
+   useEffect(() => {
+     async function view_shelves() {
+       let shelves = await view_all_shelves();
+      //  console.log("app.jsx shelves", shelves);
+       setMyShelves(shelves);
+     }
+     view_shelves();
+   }, []);
 
 
   // let outletObj = {

@@ -4,7 +4,8 @@ import {useOutletContext} from "react-router-dom"
 import Table from "react-bootstrap/Table";
 import { useState } from "react";
 
-function BookTable() {
+function BookTable({shelfArray}) {
+  //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
   let { myshelves } = useOutletContext();
 
   const [allBooks, setAllBooks] = useState([]);
@@ -13,24 +14,23 @@ function BookTable() {
 
   function renderTableElems() {
     let tempAllBooks = []; //--> array of book objs
-    let bookIdSet = new Set()
+    let bookIdSet = new Set();
     let bookShelfObj = {}; //object where the book is le key & value = shelves array
 
-    for (let shelf of myshelves) {
-
+    for (let shelf of shelfArray) {
       for (let bookObj of shelf.book) {
-        if(!bookIdSet.has(bookObj.id)) {
+        if (!bookIdSet.has(bookObj.id)) {
           tempAllBooks.push(bookObj);
-          bookIdSet.add(bookObj.id)
-        };
-        
+          bookIdSet.add(bookObj.id);
+        }
+
         if (bookShelfObj[bookObj.title]) {
           bookShelfObj[bookObj.title].push(shelf.shelf_name);
         } else {
           bookShelfObj[bookObj.title] = [shelf.shelf_name];
         }
       }
-    };
+    }
 
     return tempAllBooks.map((book) => {
       return (
