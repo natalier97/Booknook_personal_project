@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 
 function ShelfLinksCard({ shelfInfo }) {
   let navigate = useNavigate();
-  let { user, myshelves, setMyShelves } = useOutletContext();
+//   let { user, myshelves, setMyShelves } = useOutletContext();
 
   function navigateToBookShelf(shelfName) {
     let route = `/myBooksPage/${shelfName}/`;
@@ -20,7 +20,7 @@ function ShelfLinksCard({ shelfInfo }) {
 
   
     function renderCardLinks() {
-      return myshelves.map((shelf) => {
+      return shelfInfo.map((shelf) => {
         return (
           <div key={shelf.id}>
             <Card.Link onClick={() => navigateToBookShelf(shelf["shelf_name"])}>

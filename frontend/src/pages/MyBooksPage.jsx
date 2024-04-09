@@ -6,7 +6,7 @@ import {
   useParams,
 } from "react-router-dom";
 import ShelfLinksCard from "../components/ShelfLinksCard";
-
+import BookTable from "../components/BookTable";
 
 
 
@@ -19,7 +19,7 @@ function MyBooksPage(){
     return (
         <React.Fragment>
             <h1>MY BOOKS</h1>
-            
+        <BookTable />
         </React.Fragment>
     )
 };
