@@ -59,7 +59,6 @@ def fetch_book_from_google_books_api(book_title_or_author):
                 # book_info['description'] = json_info.get('description')
                 book_info['page_count'] = json_info.get('pageCount')
                 book_info['api_rating'] = json_info.get('averageRating')
-                book_info['img_url'] = json_info.get('imageLinks')['thumbnail']
 
 
                 ###---------------------------EDGE CASES---------------------------------------------------
@@ -87,15 +86,19 @@ def fetch_book_from_google_books_api(book_title_or_author):
 
 
                 #-----------------------using self Link to get more detailed information
-                
-                self_link_endpoint = json_response.get("items")[0].get('selfLink')
+                ## json_info = json_response.get("items")[item#]['volumeInfo']
+                self_link_endpoint = item.get('selfLink')
                 self_link_response = requests.get(self_link_endpoint)
                 json_self_link_response = self_link_response.json()
                 self_link_info = json_self_link_response['volumeInfo']
 
-                ##img_info
-                # img_info = self_link_info.get('imageLinks') ##has following options {'smallThumbnail', 'thumbnail','small', 'medium', 'large'}
-                # book_info['img_url'] = img_info.get('smallThumbnail')
+                #img_info
+                img_info = self_link_info.get('imageLinks') ##has following options {'smallThumbnail', 'thumbnail','small', 'medium', 'large'}
+                book_info['img_url'] = img_info.get('small')
+
+                if book_info['img_url'] is None:
+                    book_info['img_url'] = json_info.get('imageLinks')['thumbnail']
+
 
                 ###multiple genres
                 categories = [self_link_info.get('categories')]
