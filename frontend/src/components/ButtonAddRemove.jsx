@@ -63,7 +63,7 @@ function ButtonAddRemove({ book_info }) {
   return (
     <>
       <DropdownButton
-        variant="outline-success"
+        variant="outline-dark"
         id="dropdown-basic-button"
         title="Bookshelves"
       >

@@ -52,7 +52,7 @@ function LoginForm() {
   }
 
   return (
-    <Card border="success">
+    <Card border="dark">
       <Form onSubmit={isLogin ? handleLogin : handleSignUp}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -104,7 +104,7 @@ function LoginForm() {
           />
         </Form.Group>
 
-        <Button variant="success" type="submit">
+        <Button variant="outline-dark" type="submit">
           Submit
         </Button>
       </Form>

@@ -42,7 +42,7 @@ function SearchResultsPage() {
     return bookInfoArray.map((aBook, index) => {
       return(
         <div key={index}>
-        <BookCard bookInfo={aBook}/>
+        <BookCard height="40vh" bookInfo={aBook}/>
         </div>
       )
     })
@@ -50,23 +50,9 @@ function SearchResultsPage() {
 
   return (
     <>
-    {renderCards()}
-      {/* <div className="aBookPageContainer">
-        <div className="leftSideContainer">
-          <img className="bookCoverImage" src={bookInfo.img_url} />
-          <ButtonAddRemove book_info={bookInfo} />
+      <div className="searchPageContainer">
+        {renderCards()}
         </div>
-        <div className="bookInfoContainer">
-          <h2 className="bookInfoItem">{bookInfo.title}</h2>
-          <h5 className="bookInfoItem">{bookInfo.author}</h5>
-          <h6 className="bookInfoItem">{bookInfo.api_rating}⭐</h6>
-          <p className="bookInfoItem">{bookInfo.description}</p>
-          <p className="bookInfoItem">
-            Genre: <b>{bookInfo.genre && bookInfo.genre[0]}</b>
-          </p>
-          <span>{bookInfo.page_count} pages</span>
-        </div>
-      </div> */}
     </>
   );
 }

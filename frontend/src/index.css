@@ -2,13 +2,43 @@
   background-color: green;
 }
 
+@font-face {
+  font-family: 'varela-round';
+  src: url('../fonts/VarelaRound-Regular.ttf') format('truetype');
+  /* Add other font properties if needed */
+}
+
+* {
+  font-family: 'varela-round', sans-serif;
+  color: rgb(55,34,19)
+}
+
 .tableImg {
   height: 15vh;
 }
 
-.aBookPageContainer, .myBooksPageContainer {
+.backgroundImage {
+  background-image: url('https://www.shutterstock.com/image-vector/seamless-vector-pattern-abstract-wild-600nw-2363312875.jpg');
+  background-size: cover; /* or contain, or specify a width and height */
+  
+  background-position: center center; /* or top left, top right, bottom left, etc. */
+  
+  background-repeat: no-repeat; /* prevent repeating the image */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.3;
+  z-index: -1;
+  
+}
+
+.aBookPageContainer,
+.myBooksPageContainer {
   height: 93vh;
   display: flex;
+  padding-top: 3vh;
 }
 
 .bookInfoContainer {
@@ -22,7 +52,7 @@
   width: 66vw;
 }
 
-.myBooksPageLeftSideContainer{
+.myBooksPageLeftSideContainer {
   width: 25vw;
   display: flex;
   flex-direction: column;
@@ -31,10 +61,36 @@
 }
 
 .myBooksPageRightSideContainer {
-      height: 93vh;
+  height: 93vh;
   width: 75vw;
   padding-top: 1.4vh;
   padding-right: 3vh;
+}
+
+.userHomePageContainer {
+  height: 93vh;
+  width: 66vw;
+  padding: 5vh;
+  display: flex;
+
+}
+
+.userHomePageLeftSide {
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3vh;
+  position: fixed;
+}
+
+.userHomePageRightSide {
+  height: 93vh;
+  width: 75vw;
+  padding-top: 1.4vh;
+  padding-left: 7vh;
+  margin-left: 20vw;
+
 }
 
 .leftSideContainer {
@@ -46,11 +102,77 @@
 }
 
 .bookCoverImage {
-  width: 85%;
+  width: 70%;
   margin-bottom: 1vh;
   border-radius: 8px;
 }
 
 .bookInfoItem {
-    margin-bottom: 2vh;
+  margin-bottom: 2vh;
+}
+
+/* -------------------- */
+.searchPageContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 5vh;
+  margin-top: ;
+}
+
+.homePageBookCoverImg {
+  width: 15vw;
+  margin-bottom: 2vh;
+  margin-right: 2vw;
+  height: 30vh;
+}
+
+.homePageBookCoverImgAndDescriptionContainer {
+width: 50vw;
+display: flex;
+margin-bottom: 5vh;
+}
+
+.userHomePageHeader {
+  color: rgb(55,34,19);
+  font-size: 2em;
+  padding: 0.3vh;
+  border-radius: 10px;
+  margin-bottom: 3vh;
+  text-decoration: underline;
+}
+
+.spacer {
+  height: 5vh;
+}
+
+.navbar {
+  position: fixed;
+}
+
+.card-link {
+  color: rgb(108,115,65);
+
+}
+
+.card-link:hover {
+  cursor: pointer;
+  color: rgb(55,34,19);
+}
+
+.books-table-td {
+  /* Set the background color with reduced opacity */
+  background-color: rgba(255, 255, 255, 0.308) !important; /* White with 50% opacity */
+  /* You can add other styling properties as needed */
+}
+
+.books-table-th {
+   background-color: rgba(249, 240, 216, 0.829) !important;
+}
+
+#navbar {
+  background-color: rgb(95, 59, 33) !important;
+}
+
+.nav-link, .navbar-brand {
+  color: white !important;
 }

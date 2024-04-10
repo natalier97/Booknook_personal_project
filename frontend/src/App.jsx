@@ -39,6 +39,7 @@ function App() {
 
   return (
     <>
+    <div className='backgroundImage'></div>
       <NavBar user={user} setUser={setUser} searchValue={searchValue} setSearchValue={setSearchValue} />
       <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves, bookInfoArray, setBookInfoArray, aBookInfo, setABookInfo }} />
     </>

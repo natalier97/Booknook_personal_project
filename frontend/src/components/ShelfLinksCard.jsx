@@ -19,10 +19,11 @@ function ShelfLinksCard() {
 
   function renderCardLinks() {
     return myshelves.map((shelf) => {
+      let numOfBooks = shelf.book.length
       return (
         <div key={shelf.id}>
           <Card.Link onClick={() => navigateToBookShelf(shelf["shelf_name"])}>
-            {shelf["shelf_name"]}
+            {numOfBooks} {"  "}  {shelf["shelf_name"]}
           </Card.Link>
         </div>
       );

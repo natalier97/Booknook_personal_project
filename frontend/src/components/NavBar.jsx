@@ -34,7 +34,13 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
 
   return (
     <nav style={{ height: "5vh" }}>
-      <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
+      <Navbar
+        id="navbar"
+         style={{ position: "fixed", width: "100%" }}
+        sticky="top"
+        expand="lg"
+        className="bg-body-tertiary"
+      >
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
             BookNook
@@ -82,7 +88,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
                 onChange={handleInput}
                 value={searchValue}
               />
-              <Button variant="outline-success" onClick={navigateToSearchPage}>
+              <Button variant="outline-light" onClick={navigateToSearchPage}>
                 Search
               </Button>
             </Form>

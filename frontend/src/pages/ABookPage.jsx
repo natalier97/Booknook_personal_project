@@ -20,7 +20,6 @@ function ABookPage(){
     
     return (
       <React.Fragment>
-        <h1>Search Results Page</h1>
         <div className="aBookPageContainer">
           <div className="leftSideContainer">
             <img className="bookCoverImage" src={aBookInfo.img_url} />

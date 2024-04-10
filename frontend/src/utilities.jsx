@@ -120,7 +120,7 @@ export const google_api_call = async (book_name) => {
   let response = await api.get(`books/nonuser/${book_name}/`);
   console.log("GOOGLE_API_CALL FUNC", response.data);
   if ((response.status = 200)) {
-    return response.data[0];
+    return response.data;
   } else {
     return null;
   }

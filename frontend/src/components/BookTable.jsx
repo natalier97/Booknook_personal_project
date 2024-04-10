@@ -15,7 +15,7 @@ function BookTable({shelfArray}) {
     setABookInfo(bookInfo);
     let route = `/book/${book_title}/`;
 
-    navigate(route);
+    navigate(route); 
   }
 
   function renderTableElems() {
@@ -41,7 +41,7 @@ function BookTable({shelfArray}) {
     return tempAllBooks.map((book) => {
       return (
         <tr key={book.id}>
-          <td>
+          <td className="books-table-td">
             {" "}
             <img
               tabIndex="0"
@@ -52,16 +52,19 @@ function BookTable({shelfArray}) {
             ></img>
           </td>
           <td
+            className="books-table-td"
             tabIndex="0"
             role="button"
             onClick={() => navigateToBookPage(book.title, book)}
           >
             {book.title}
           </td>
-          <td>{book.author}</td>
-          <td>{bookShelfObj[book.title].join(", ")}</td>
-          <td>{book.page_count}</td>
-          <td>{book.api_rating}</td>
+          <td className="books-table-td">{book.author}</td>
+          <td className="books-table-td">
+            {bookShelfObj[book.title].join(", ")}
+          </td>
+          <td className="books-table-td">{book.page_count}</td>
+          <td className="books-table-td">{book.api_rating}</td>
         </tr>
       );
     });
@@ -71,14 +74,14 @@ function BookTable({shelfArray}) {
     <Table responsive>
       <thead>
         <tr>
-          <th>cover</th>
-          <th>title</th>
-          <th>author</th>
+          <th className="books-table-th">cover</th>
+          <th className="books-table-th">title</th>
+          <th className="books-table-th">author</th>
           {/* <th>my rating</th> */}
-          <th>shelves</th>
-          <th>page count</th>
+          <th className="books-table-th">shelves</th>
+          <th className="books-table-th">page count</th>
           {/* <th>booknook ratings</th> */}
-          <th>ratings</th>
+          <th className="books-table-th">ratings</th>
         </tr>
       </thead>
       <tbody>{renderTableElems()}</tbody>
