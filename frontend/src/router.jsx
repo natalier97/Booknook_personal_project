@@ -18,7 +18,7 @@ const router = createBrowserRouter([
                 element: <LandingPage />,
             },
             {
-                path: "/bookPage/:searchInput/",
+                path: "/searchresults/:searchInput/",
                 element: <ABookPage />
             },
             {

@@ -14,7 +14,7 @@ import ButtonAddRemove from "../components/ButtonAddRemove";
 //  renders on path: "bookPage/:searchInput/"
 
 function ABookPage() {
-  let { user, bookInfo, setBookInfo } = useOutletContext();
+  let { user, bookInfoArray, setBookInfoArray } = useOutletContext();
   const { searchInput } = useParams();
   
 
@@ -25,19 +25,33 @@ function ABookPage() {
         let temp_book_info = await book_from_db(searchInput);
 
         console.log("A BOOK PAGE -- USER", temp_book_info);
-        setBookInfo(temp_book_info);
+        setBookInfoArray(temp_book_info);
       } else {
         let temp_book_info = await google_api_call(searchInput);
         console.log("A book page - NO user", temp_book_info);
-        setBookInfo(temp_book_info);
+        setBookInfoArray(temp_book_info);
       }
     }
     fetchData();
   }, [searchInput]);
 
+
+  console.log('A BOOK PAGE', bookInfoArray)
+
+  function renderCards(){
+    return bookInfoArray.map((aBook, index) => {
+      return(
+        <div key={index}>
+        <BookCard bookInfo={aBook}/>
+        </div>
+      )
+    })
+  }
+
   return (
     <>
-      <div className="aBookPageContainer">
+    {renderCards()}
+      {/* <div className="aBookPageContainer">
         <div className="leftSideContainer">
           <img className="bookCoverImage" src={bookInfo.img_url} />
           <ButtonAddRemove book_info={bookInfo} />
@@ -52,7 +66,7 @@ function ABookPage() {
           </p>
           <span>{bookInfo.page_count} pages</span>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

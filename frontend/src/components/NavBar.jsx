@@ -19,7 +19,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
   }
 
   function navigateToBookPage() {
-    let route = `/bookPage/${searchValue}/`;
+    let route = `/searchresults/${searchValue}/`;
     navigate(route);
     setSearchValue("");
   }

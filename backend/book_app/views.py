@@ -40,10 +40,10 @@ def search_db_for_book(book_title):
 class Google_books(APIView):
     def get(self, request, book_title_or_author):
         #returns an object w/ all Book Model info
-        book_info = fetch_book_from_google_books_api(book_title_or_author)
+        books_array = fetch_book_from_google_books_api(book_title_or_author)
         
-        if book_info:
-            return Response([book_info], status=HTTP_200_OK)
+        if books_array:
+            return Response(books_array, status=HTTP_200_OK)
         else:
             return Response(status=HTTP_404_NOT_FOUND)
        
@@ -58,9 +58,9 @@ class Search_for_book(APIView):
         if book:
             return Response(book, status=HTTP_200_OK)
         else:
-            new_book = fetch_book_from_google_books_api(book_title_or_author)            
-            if new_book['img_url']:
-                return Response([new_book], status=HTTP_200_OK)
+            books_array = fetch_book_from_google_books_api(book_title_or_author)            
+            if len(books_array):
+                return Response(books_array, status=HTTP_200_OK)
             else: 
                 return Response(None, status=HTTP_404_NOT_FOUND)
     

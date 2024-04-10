@@ -101,8 +101,9 @@ export const book_from_db = async (book_name) => {
 
     console.log("BOOK_FROM_DB FUNC", response.data);
     if ((response.status = 200)) {
-      console.log("RESPONSE = 200", response.data[0]);
-      return response.data[0];
+      console.log("book_from_db utilities --> RESPONSE = 200", response.data);
+      //response.data is returning an array of book objects
+      return response.data;
     } else {
       //response != 200 aka no book found
       return null;
