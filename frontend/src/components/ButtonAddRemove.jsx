@@ -10,7 +10,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 function ButtonAddRemove({ book_info }) {
   let { myshelves, view_shelves, bookInfo } = useOutletContext();
   //  #shelf = {"id", "shelf_name", "book"}; book = [{title, author, description, api_rating, page_count, genre, img-url, isbn}, {}]
-// const[updatedShelves, setUpdatedShelves] =  useState(myshelves)
+
 
 
 // useEffect(()=>{
@@ -18,17 +18,12 @@ function ButtonAddRemove({ book_info }) {
 // }, [myshelves])
 
 
-console.log('book iinfo', bookInfo)
-
-
   function isInShelf(shelf_name) {
     let action = "add";
     for (let shelf of myshelves) {
       if (shelf.shelf_name === shelf_name) {
-        console.log("hola amigo")
 
         for (let book of shelf.book) {
-          console.log('book loop goodbye')
             
           if ( book.isbn === bookInfo.isbn) {
             action = "remove";

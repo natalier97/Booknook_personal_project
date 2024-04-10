@@ -4,6 +4,7 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 import re
 
 ##TODO - add more than 1 author for a book? 
+first_five_books = []
 
 book_info = {
       'title': None,
