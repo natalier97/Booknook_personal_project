@@ -11,32 +11,29 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-function NavBar({user, setUser, searchValue, setSearchValue}) {
+function NavBar({ user, setUser, searchValue, setSearchValue }) {
   let navigate = useNavigate();
 
   function handleInput(event) {
-    setSearchValue(event.target.value)
-  };
+    setSearchValue(event.target.value);
+  }
 
+  function navigateToBookPage() {
+    let route = `/bookPage/${searchValue}/`;
+    navigate(route);
+    setSearchValue("");
+  }
 
-function navigateToBookPage(){
-  let route = `/bookPage/${searchValue}/`
-  navigate(route);
-  setSearchValue('')
-}
-
-
-
-  async function handleUserLogout(){
-    let loggedOut = await userLogout()
+  async function handleUserLogout() {
+    let loggedOut = await userLogout();
     //true or false will be returned
-    if(loggedOut){
-      setUser(null)
+    if (loggedOut) {
+      setUser(null);
     }
-  };
+  }
 
   return (
-    <nav>
+    <nav style={{ height: "5vh" }}>
       <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
@@ -44,11 +41,7 @@ function navigateToBookPage(){
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
+            <Nav className="me-auto my-2 my-lg-0" navbarScroll>
               <Nav.Link as={Link} to="/homePage/">
                 Home :){" "}
               </Nav.Link>
@@ -57,9 +50,7 @@ function navigateToBookPage(){
                 {user ? user.user : "Sign Up/Log In"}{" "}
               </Nav.Link>
               <NavDropdown title="" id="navbarScrollingDropdown">
-                {user ? (
-                 null
-                ) : (
+                {user ? null : (
                   <Nav.Link as={Link} to="/">
                     Log In / Sign Up
                   </Nav.Link>

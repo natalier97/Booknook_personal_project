@@ -19,9 +19,9 @@ function BookTable({shelfArray}) {
 
     for (let shelf of shelfArray) {
       for (let bookObj of shelf.book) {
-        if (!bookIdSet.has(bookObj.id)) {
+        if (!bookIdSet.has(bookObj.isbn)) {
           tempAllBooks.push(bookObj);
-          bookIdSet.add(bookObj.id);
+          bookIdSet.add(bookObj.isbn);
         }
 
         if (bookShelfObj[bookObj.title]) {

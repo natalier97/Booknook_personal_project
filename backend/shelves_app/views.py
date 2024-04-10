@@ -66,43 +66,36 @@ class A_Shelf(TokenReq):
 
     #add or delete book  to shelf
     def post(self, request, shelf_name):
-        # {"action": 'add' / 'remove', 'book':[{book info}]}
+        # {"action": 'add' / 'remove', 'book':{book info} }
+
         data = request.data.copy()
+        print("post-add/remove book", data['action'], data['book'])
+
         data['user'] = request.user.id
         book_user = request.user
-        a_shelf = Shelves.objects.filter(user = book_user, shelf_name = shelf_name)
-
+        a_shelf = Shelves.objects.get(user = book_user, shelf_name = shelf_name)
+       
         ####checking to see if book is already in database/on a shelf, should have an ID if so
-        book_info = data['book'][0]  #.get() ---> id, title, isbn
+        book_info = data['book'] 
         db_book_id = book_info.get('id') # --> should return None or id value
 
-        
-        ##adding or removing book from db
-        if a_shelf.exists():
-            ##checking to see if book in db or need to create A NEW BOOK INSTANCE
-            if db_book_id:
-                book = Book.objects.filter(id = db_book_id)
-            else:
-                book = Book.objects.create(data = book_info)
-
-
-            ##adding or removing
-            if data["action"] == "add":
-                a_shelf.book.add(book)
-                return Response({"message": "Book added to shelf successfully"}, status=HTTP_200_OK)
-            else: ##== "remove"
-                a_shelf.book.remove(book)
-                return Response({"message": "Book removed from shelf successfully"}, status=HTTP_200_OK)
+        ##checking to see if book in db or need to create A NEW BOOK INSTANCE
+        if db_book_id:
+            book = Book.objects.get(id = db_book_id)
         else:
-            return Response({"error"}, status=HTTP_400_BAD_REQUEST)
+            book = Book.objects.create(**book_info) #data = book_info, partial=True
 
 
-    ##update shelf name?
-    def put(self, request, shelf_name):
-        book_user = request.user
-        a_shelf = Shelves.objects.filter(user = book_user, shelf_name = shelf_name)
+        ##adding or removing
+        if data["action"] == "add":
+            a_shelf.book.add(book)
+            return Response({"message": "Book added to shelf successfully"}, status=HTTP_200_OK)
+        elif data["action"] == "remove": ##== "remove"
+            a_shelf.book.remove(book)
+            return Response({"message": "Book removed from shelf successfully"}, status=HTTP_200_OK)
+        else:
+            return Response({"error": "Invalid action or no action specified"}, status=HTTP_400_BAD_REQUEST)
 
-    
 
     ##delete shelf
     def delete(self, request, shelf_name):

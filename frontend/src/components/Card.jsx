@@ -27,7 +27,7 @@ function BookCard({bookInfo}) {
   );
 
 
-  console.log("in Card.jsx >>>> book_info:", bookInfo)
+ 
 
   return (
     <>

@@ -136,7 +136,7 @@ export const view_all_shelves = async () => {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
 
-    let response = await api.get(`shelves/allshelves/`);
+    let response = await api.get(`shelves/as/allshelves/`);
 
     if ((response.status = 200)) {
       // console.log("view+all+shelves RESPONSE = 200", response.data);
@@ -163,22 +163,16 @@ export const view_a_shelf = async (shelf_name) => {
     let get_response = await api.get(`/shelves/${shelf_name}/`);
 
     if ((get_response.status = 200)) {
-      console.log("RESPONSE = 200", get_response.data[0]);
+      console.log("a_shelf GET response = 200", get_response.data[0]);
       return get_response.data[0];
     } else {
       //response != 200 aka no shelf found
       return null;
     };
-
-
-
   }
-
-
-
   //no token found
   else {
-    console.log("cant view A SHELF -no token in local storage");
+    console.log("no token in local storage -cant view A SHELF");
     return null;
   }
 };
@@ -188,3 +182,40 @@ export const view_a_shelf = async (shelf_name) => {
 //// ADDING/REMOVING BOOK TO A SHELF ////
 ///////////////////////////////////////
 
+export const addremove_to_a_shelf = async (shelf_name, book_info_obj) => {
+  // book_info_obj = {"action": 'add' / 'remove', 'book':{book info} }
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Token ${token}`;
+
+
+    // /shelves/<str:shelf_name>/
+    let get_response = await api.post(`/shelves/${shelf_name}/`, book_info_obj);
+
+    if ((get_response.status = 200)) {
+      console.log("a_shelf POST response = 200", get_response.data[0]);
+      return true;
+    } else {
+    
+      return false;
+    }
+  }
+  //no token found
+  else {
+    console.log("no token in local storage--cant access A SHELF -");
+    return null;
+  }
+};
+
+  // request_body = {
+    //   title,
+    //   author,
+    //   description,
+    //   page_count,
+    //   genre,
+    //   img_url,
+    // }; //isbn, api_rating, id
+
+    // /* conditionally adding isbn, api_rating, and/or id*/
+    // if()

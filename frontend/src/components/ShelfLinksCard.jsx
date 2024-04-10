@@ -7,31 +7,29 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-
 function ShelfLinksCard() {
-
   let navigate = useNavigate();
-//  #["id", "shelf_name", "book"];
-  let { myshelves } = useOutletContext(); 
+  //  #["id", "shelf_name", "book"];
+  let { myshelves } = useOutletContext();
 
   function navigateToBookShelf(shelfName) {
     let route = `/myBooksPage/${shelfName}/`;
     navigate(route);
   }
 
-    function renderCardLinks() {
-      return myshelves.map((shelf) => {
-        return (
-          <div key={shelf.id}>
-            <Card.Link onClick={() => navigateToBookShelf(shelf["shelf_name"])}>
-              {shelf["shelf_name"]}
-            </Card.Link>
-          </div>
-        );
-      });
-    };
-  
-//------------------------------------------------------
+  function renderCardLinks() {
+    return myshelves.map((shelf) => {
+      return (
+        <div key={shelf.id}>
+          <Card.Link onClick={() => navigateToBookShelf(shelf["shelf_name"])}>
+            {shelf["shelf_name"]}
+          </Card.Link>
+        </div>
+      );
+    });
+  }
+
+  //------------------------------------------------------
   return (
     <React.Fragment>
       <Card style={{ width: "18rem" }}>

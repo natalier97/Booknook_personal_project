@@ -17,14 +17,14 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
 //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
   const [myshelves, setMyShelves] = useState([]); 
-
-
+  
+ async function view_shelves() {
+   let shelves = await view_all_shelves();
+   console.log("app.jsx shelves", shelves);
+   setMyShelves(shelves);
+ }
    useEffect(() => {
-     async function view_shelves() {
-       let shelves = await view_all_shelves();
-      //  console.log("app.jsx shelves", shelves);
-       setMyShelves(shelves);
-     }
+
      view_shelves();
    }, []);
 
@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       <NavBar user={user} setUser={setUser} searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Outlet context={{ user, setUser, myshelves, setMyShelves }} />
+      <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves }} />
     </>
   );
 }

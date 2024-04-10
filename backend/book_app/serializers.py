@@ -9,7 +9,7 @@ class BookSerializer(ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['id','title','author','page_count','img_url','genre','api_rating', 'description', 'booknook_avg_ratings']
+        fields = ['id','title','author','page_count','img_url','genre','api_rating', 'description', 'isbn','booknook_avg_ratings']
         #book_ratings
         #book_on_shelf
 
