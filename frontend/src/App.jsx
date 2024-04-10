@@ -17,6 +17,8 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
 //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
   const [myshelves, setMyShelves] = useState([]); 
+  const [bookInfo, setBookInfo] = useState({});
+
   
  async function view_shelves() {
    let shelves = await view_all_shelves();
@@ -37,7 +39,7 @@ function App() {
   return (
     <>
       <NavBar user={user} setUser={setUser} searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves }} />
+      <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves, bookInfo, setBookInfo }} />
     </>
   );
 }

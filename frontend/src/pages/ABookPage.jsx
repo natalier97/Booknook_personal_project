@@ -14,9 +14,9 @@ import ButtonAddRemove from "../components/ButtonAddRemove";
 //  renders on path: "bookPage/:searchInput/"
 
 function ABookPage() {
-  const [bookInfo, setBookInfo] = useState({});
-  let { user } = useOutletContext();
+  let { user, bookInfo, setBookInfo } = useOutletContext();
   const { searchInput } = useParams();
+  
 
   useEffect(() => {
     async function fetchData() {
