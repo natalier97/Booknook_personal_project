@@ -18,6 +18,7 @@ function App() {
 //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
   const [myshelves, setMyShelves] = useState([]); 
   const [bookInfoArray, setBookInfoArray] = useState([]);
+  const [aBookInfo, setABookInfo] = useState({})
 
   
  async function view_shelves() {
@@ -39,7 +40,7 @@ function App() {
   return (
     <>
       <NavBar user={user} setUser={setUser} searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves, bookInfoArray, setBookInfoArray }} />
+      <Outlet context={{ user, setUser, myshelves, setMyShelves, view_shelves, bookInfoArray, setBookInfoArray, aBookInfo, setABookInfo }} />
     </>
   );
 }

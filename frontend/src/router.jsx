@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App"
 import LandingPage from "./pages/LandingPage.jsx"
-import ABookPage from "./pages/ABookPage.jsx";
 import UserHomePage from "./pages/UserHomePage.jsx";
 import MyBooksPage from "./pages/MyBooksPage.jsx";
 import { userConfirmation } from "./utilities.jsx";
+import SearchResultsPage from "./pages/SearchResultPage.jsx";
+import ABookPage from "./pages/ABookPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/searchresults/:searchInput/",
-                element: <ABookPage />
+                element: <SearchResultsPage />
             },
             {
                 path: "/homePage/",
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
             {
                 path: "/myBooksPage/:shelfName/",
                 element: <MyBooksPage />
-            }
+            },
+            {
+                path: "/book/:bookName/",
+                element: <ABookPage />
+            },
         ]
     }
 ]);

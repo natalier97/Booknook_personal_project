@@ -8,7 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 function ButtonAddRemove({ book_info }) {
-  let { myshelves, view_shelves, bookInfo } = useOutletContext();
+  let { myshelves, view_shelves, aBookInfo } = useOutletContext();
   //  #shelf = {"id", "shelf_name", "book"}; book = [{title, author, description, api_rating, page_count, genre, img-url, isbn}, {}]
 
 
@@ -25,7 +25,7 @@ function ButtonAddRemove({ book_info }) {
 
         for (let book of shelf.book) {
             
-          if ( book.isbn === bookInfo.isbn) {
+          if ( book.isbn === aBookInfo.isbn) {
             action = "remove";
             break;
           }
@@ -38,7 +38,7 @@ function ButtonAddRemove({ book_info }) {
   async function handleBooktoBookShelf(shelf_name) {
     // book_info_obj = {"action": 'add' / 'remove', 'book':{book info} }
    
-    let book_info_obj = { action: isInShelf(shelf_name), book: bookInfo };
+    let book_info_obj = { action: isInShelf(shelf_name), book: aBookInfo };
     //going to return true if book added to shelf
     let response = await addremove_to_a_shelf(shelf_name, book_info_obj);
     view_shelves()

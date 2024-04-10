@@ -18,7 +18,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
     setSearchValue(event.target.value);
   }
 
-  function navigateToBookPage() {
+  function navigateToSearchPage() {
     let route = `/searchresults/${searchValue}/`;
     navigate(route);
     setSearchValue("");
@@ -82,7 +82,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
                 onChange={handleInput}
                 value={searchValue}
               />
-              <Button variant="outline-success" onClick={navigateToBookPage}>
+              <Button variant="outline-success" onClick={navigateToSearchPage}>
                 Search
               </Button>
             </Form>

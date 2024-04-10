@@ -1,4 +1,4 @@
-import {useOutletContext} from "react-router-dom"
+import {useOutletContext, useNavigate} from "react-router-dom"
 
 //bootstrap
 import Table from "react-bootstrap/Table";
@@ -6,11 +6,17 @@ import { useState } from "react";
 
 function BookTable({shelfArray}) {
   //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
-  let { myshelves } = useOutletContext();
+  //  #shelf_obj = {"id", "shelf_name", "book"}; book = [{title, author, description, api_rating, page_count, genre, img-url}, {}]
 
-  const [allBooks, setAllBooks] = useState([]);
+  let { myshelves, aBookInfo, setABookInfo } = useOutletContext();
+  let navigate = useNavigate();
 
-  //  #shelf = {"id", "shelf_name", "book"}; book = [{title, author, description, api_rating, page_count, genre, img-url}, {}]
+  function navigateToBookPage(book_title, bookInfo) {
+    setABookInfo(bookInfo);
+    let route = `/book/${book_title}/`;
+
+    navigate(route);
+  }
 
   function renderTableElems() {
     let tempAllBooks = []; //--> array of book objs
@@ -37,9 +43,21 @@ function BookTable({shelfArray}) {
         <tr key={book.id}>
           <td>
             {" "}
-            <img className="tableImg" src={book.img_url}></img>
+            <img
+              tabIndex="0"
+              role="button"
+              onClick={() => navigateToBookPage(book.title, book)}
+              className="tableImg"
+              src={book.img_url}
+            ></img>
           </td>
-          <td>{book.title}</td>
+          <td
+            tabIndex="0"
+            role="button"
+            onClick={() => navigateToBookPage(book.title, book)}
+          >
+            {book.title}
+          </td>
           <td>{book.author}</td>
           <td>{bookShelfObj[book.title].join(", ")}</td>
           <td>{book.page_count}</td>

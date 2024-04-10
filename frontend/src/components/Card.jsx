@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { book_from_db, google_api_call } from "../utilities";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 //bootstrap stuff
 import Card from "react-bootstrap/Card";
@@ -11,10 +11,18 @@ import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/esm/Button";
 
 function BookCard({bookInfo}) {
-  let { user } = useOutletContext();
+  let { user, aBookInfo, setABookInfo } = useOutletContext();
+  let navigate = useNavigate();
 
+  function navigateToBookPage(book_title){
+    setABookInfo(bookInfo);
+    let route = `/book/${book_title}/`
+    navigate(route)
+  }
 
-
+//   useEffect(() => {
+// setABookInfo(bookInfo)
+//   }, [bookInfo])
 
 
 
@@ -39,7 +47,7 @@ function BookCard({bookInfo}) {
             overlay={renderTooltip}
           >
             <Card>
-              <Card.Img variant="top" alt="Book Cover" src={bookInfo.img_url} />
+              <Card.Img variant="top" alt="Book Cover" src={bookInfo.img_url} onClick={() => navigateToBookPage(bookInfo.title)}/>
 
               {/* <Card.Body>
                   <Card.Title>Card title</Card.Title>
