@@ -16,11 +16,22 @@ function LandingPage() {
  
   return (
     <>
-      <h1>HELLLO! welcome to the Landing page</h1>
-
-      <NYTimesComponent />
-      <div>
-        <LoginForm />
+      <div className="bookNookImg"></div>
+      <div className="landingpage-container">
+        <div className="landingpage-leftside">
+          <div className="landingPageNytContainer">
+            <NYTimesComponent
+              bookcoverHeight="15vh"
+              nytimesComponentContainerHeight="90vh"
+              displayTooltip={true}
+              overflowX={"hidden"}
+              nytComponentContainerOverflowY={"hidden"}
+            />
+          </div>
+        </div>
+        <div className="landingpage-rightside">
+          <LoginForm />
+        </div>
       </div>
     </>
   );

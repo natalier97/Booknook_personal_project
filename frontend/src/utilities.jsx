@@ -170,6 +170,8 @@ export const view_all_shelves = async () => {
   }
 };
 
+
+
 export const view_a_shelf = async (shelf_name) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -193,6 +195,29 @@ export const view_a_shelf = async (shelf_name) => {
   }
 };
 
+///----------------creating a new shelf /////////////////
+export const create_a_shelf = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Token ${token}`;
+
+    //response body {}
+    let response = await api.post(`shelves/as/allshelves/`);
+
+    if ((response.status = 200)) {
+      // console.log("view+all+shelves RESPONSE = 200", response.data);
+      return response.data;
+    } else {
+      //response != 200, aka no user id found
+      return null;
+    }
+  }
+  //no token found
+  else {
+    console.log("cant create all_ shelf -no token in local storage");
+    return null;
+  }
+};
 
 ////////////////////////////////////////
 //// ADDING/REMOVING BOOK TO A SHELF ////

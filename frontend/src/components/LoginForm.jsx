@@ -53,7 +53,7 @@ function LoginForm() {
   }
 
   return (
-    <Card border="dark">
+    <Card border="dark" id="loginform-card">
       <Form onSubmit={isLogin ? handleLogin : handleSignUp}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>

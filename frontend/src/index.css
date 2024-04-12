@@ -89,7 +89,7 @@
   width: 75vw;
   padding-top: 1.4vh;
   padding-left: 7vh;
-  margin-left: 20vw;
+  margin-left: 25vw;
 
 }
 
@@ -183,6 +183,8 @@ margin-bottom: 5vh;
   display: flex;
   justify-content: space-between;
   padding: 1vh;
+  overflow-y: hidden;
+  margin-bottom: 15px;
 }
 
 /* contains the .tooltip */
@@ -194,9 +196,9 @@ position: relative;
 .tooltip {
   visibility: hidden;
   width: 200px;
-  background-color: rgb(108,115,65);
-  color: #fff;
+  background-color: rgba(249, 240, 216, 0.829);
   text-align: center;
+  font-weight: 600;
   border-radius: 6px;
   padding: 5px;
   position: absolute;
@@ -215,5 +217,78 @@ position: relative;
 
 .nytimes-cover-pic{
 border-radius: 6px;
+margin-right: 1.5vh;
 
+}
+
+.nytimes-component-container{
+  padding: 2vh;
+  width:100%;
+/* overflow-y: scroll; */
+/* margin-right: 3vh; */
+margin-top: 2vh;
+}
+
+.landingpage-container{
+  display: flex;
+
+}
+
+.landingpage-leftside{
+  width: 60vw;
+  padding-left: 5vh;
+  padding-right: 5vh;
+}
+
+.landingpage-rightside{
+  width: 23vw;
+  margin-top: 15vh;
+  margin-left: 7.5vw;
+}
+
+#loginform-card{
+  padding: 1.5vh !important;
+}
+
+.nytHeader {
+  border: solid 1px rgb(95, 59, 33);
+  border-radius: 5px;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  background-color: rgba(249, 240, 216, 0.829);
+  align-items: center;
+}
+
+.bookNookImg {
+  height: 35vh;
+  margin-top: 1.1vh;
+  background-image: url('../assets/booknook_pic3.png');
+  background-size: cover; /* or contain, or specify a width and height */
+  /* border-radius: 10px; */
+  width: 100vw;
+  background-position: center center; /* or top left, top right, bottom left, etc. */
+  background-repeat: no-repeat; /* prevent repeating the image */
+}
+
+.landingPageNytContainer {
+  margin-top: -2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10vh;
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #4b6d5a9a; 
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

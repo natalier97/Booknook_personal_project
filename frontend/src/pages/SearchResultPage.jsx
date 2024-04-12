@@ -8,6 +8,8 @@ import {
 import BookCard from "../components/Card";
 import { book_from_db, google_api_call } from "../utilities";
 import ButtonAddRemove from "../components/ButtonAddRemove";
+import { Spinner } from "react-bootstrap";
+
 
 //bootstrap stuff
 
@@ -20,6 +22,7 @@ function SearchResultsPage() {
 
   useEffect(() => {
     async function fetchData() {
+      setBookInfoArray([0, 0, 0, 0, 0])
       if (user) {
         // console.log("im a user")
         let temp_book_info = await book_from_db(searchInput);
@@ -36,15 +39,19 @@ function SearchResultsPage() {
   }, [searchInput]);
 
 
-  console.log('A BOOK PAGE', bookInfoArray)
+  console.log('SEARCH RESULT PAGE--book info array', bookInfoArray)
 
   function renderCards(){
     return bookInfoArray.map((aBook, index) => {
-      return(
-        <div key={index}>
-        <BookCard height="40vh" bookInfo={aBook}/>
+      return aBook === 0 ? (
+        <div key={index} className="d-flex justify-content-center">
+          <div className="loader"></div>
         </div>
-      )
+      ) : (
+        <div key={index}>
+          <BookCard height="40vh" bookInfo={aBook} />
+        </div>
+      );
     })
   }
 

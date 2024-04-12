@@ -23,6 +23,7 @@ function BookCard({ bookInfo, height, width }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
+  
   let short_descript = bookInfo.description.split(" ");
   const shouldTruncate = bookInfo.description.length > 80;
   const displayText = isExpanded

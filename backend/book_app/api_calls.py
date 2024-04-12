@@ -3,6 +3,7 @@ import requests
 from rest_framework.status import HTTP_404_NOT_FOUND
 import re
 
+
 ##TODO - add more than 1 author for a book? 
 
 book_info = {
@@ -56,9 +57,10 @@ def fetch_book_from_google_books_api(book_title_or_author):
             
                 book_info['title'] = json_info.get('title')
                 book_info['author'] = json_info.get('authors')[0] if json_info.get('authors') else None
-                # book_info['description'] = json_info.get('description')
+                book_info['description'] = json_info.get('description')
                 book_info['page_count'] = json_info.get('pageCount')
                 book_info['api_rating'] = json_info.get('averageRating')
+                book_info['genre'] = json_info.get('categories')
 
 
                 ###---------------------------EDGE CASES---------------------------------------------------
@@ -87,32 +89,49 @@ def fetch_book_from_google_books_api(book_title_or_author):
 
                 #-----------------------using self Link to get more detailed information
                 ## json_info = json_response.get("items")[item#]['volumeInfo']
-                self_link_endpoint = item.get('selfLink')
-                self_link_response = requests.get(self_link_endpoint)
-                json_self_link_response = self_link_response.json()
-                self_link_info = json_self_link_response['volumeInfo']
+
+                #here
+                # self_link_endpoint = item.get('selfLink')
+                # self_link_response = requests.get(self_link_endpoint)
+                # json_self_link_response = self_link_response.json()
+                # self_link_info = json_self_link_response['volumeInfo']
 
                 #img_info
-                img_info = self_link_info.get('imageLinks') ##has following options {'smallThumbnail', 'thumbnail','small', 'medium', 'large'}
-                book_info['img_url'] = img_info.get('thumbnail')
+                # img_info = self_link_info.get('imageLinks') ##has following options {'smallThumbnail', 'thumbnail','small', 'medium', 'large'}
+                # book_info['img_url'] = img_info.get('large')
+
+            
+
+                def check_image(url):
+                    response = requests.get(url)
+                    # print("HEADERS !!!!!!!!!--------------------",response.headers.get('Content-Type'))
+                    if response.headers.get('Content-Type'):
+                        if response.headers.get('Content-Type').startswith('image') and len(response.content) > 1024:  # Arbitrary size threshold
+                            book_info['img_url'] = url
+                            return True
+                    return False
+                
+                check_image(f"https://covers.openlibrary.org/b/isbn/{book_info['isbn']}-L.jpg")
+           
+                # book_info['img_url'] = f"https://covers.openlibrary.org/b/isbn/{book_info['isbn']}-L.jpg"
 
                 if book_info['img_url'] is None:
                     book_info['img_url'] = json_info.get('imageLinks')['thumbnail']
 
-
-                ###multiple genres
-                categories = [self_link_info.get('categories')]
-                if categories:
-                    i = 0
-                    for i in range(min((len(categories)), 4)):
-                        book_info['genre'] += categories[i]
-                else: 
-                     pass
+                # #here
+                # ###multiple genres
+                # categories = [self_link_info.get('categories')]
+                # if categories:
+                #     i = 0
+                #     for i in range(min((len(categories)), 4)):
+                #         book_info['genre'] += categories[i]
+                # else: 
+                #      pass
         
-                ### getting & cleaning description 
-                dirty_description = self_link_info.get('description')
-                clean_description = remove_html_tags(dirty_description)
-                book_info['description'] = clean_description
+                # ### getting & cleaning description 
+                # dirty_description = self_link_info.get('description')
+                # clean_description = remove_html_tags(dirty_description)
+                # book_info['description'] = clean_description
 
                 if not is_duplicate_isbn(book_info, first_five_books):
                     first_five_books.append(book_info)

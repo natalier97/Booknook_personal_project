@@ -4,6 +4,7 @@ import {useOutletContext} from  "react-router-dom";
 import ShelfLinksCard from "../components/ShelfLinksCard";
 import ButtonAddRemove from "../components/ButtonAddRemove";
 import BookCard from "../components/Card";
+import NYTimesComponent from "../components/NYTimesComponent";
 //bootstrap stuff
 
 
@@ -78,12 +79,19 @@ function renderWantReadCards() {
       <div className="userHomePageContainer">
         <div className="userHomePageLeftSide">
           <ShelfLinksCard />
+          <NYTimesComponent
+            bookcoverHeight="10vh"
+            nytimesComponentContainerHeight="62vh"
+            displayTooltip={false}
+            overflowX={"scroll"}
+            nytComponentContainerOverflowY={"scroll"}
+          />
         </div>
 
         <div className="userHomePageRightSide">
           <h3 className="userHomePageHeader">Currently Reading</h3>
           {renderCurrReadCards()}
-          <div className='spacer'></div>
+          <div className="spacer"></div>
           <h3 className="userHomePageHeader">Want to Read</h3>
           {renderWantReadCards()}
         </div>

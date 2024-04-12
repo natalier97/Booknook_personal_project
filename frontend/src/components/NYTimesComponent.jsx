@@ -9,7 +9,13 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 
-function NYTimesComponent() {
+function NYTimesComponent({
+  bookcoverHeight,
+  displayTooltip,
+  nytimesComponentContainerHeight,
+  overflowX,
+  nytComponentContainerOverflowY
+}) {
   // should return an object ##where key = list_name & value is array of bookObjs
   let { nytimesListObj, user, setABookInfo } = useOutletContext();
   let navigate = useNavigate();
@@ -40,22 +46,15 @@ function NYTimesComponent() {
     navigateToBookPage(title, book_info);
   }
 
-
-  /////////HOVER COMPONENT
-  const renderTooltip = (props) => (
-    <Tooltip onClick={toggleExpanded} id="card-tooltip" {...props}>
-      {/* {bookInfo.description} */}
-      {displayText}
-    </Tooltip>
-  );
-
-
   function renderBooks() {
     return Object.keys(nytimesListObj).map((key, index) => {
       return (
         <div key={index}>
-          <h4>{key}</h4>
-          <div className="nytimesBookListContainer">
+          <h6>{key}</h6>
+          <div
+            style={{ overflowX: overflowX }}
+            className="nytimesBookListContainer"
+          >
             {nytimesListObj[key].map((book, index) => {
               //  let bookInfo = fetchBookData(book.primary_isbn13);
 
@@ -63,6 +62,7 @@ function NYTimesComponent() {
               return (
                 <div key={index} className="nytimes-cover-tooltip-container">
                   <img
+                    style={{ height: bookcoverHeight }}
                     className="nytimes-cover-pic"
                     tabIndex="0"
                     role="button"
@@ -71,7 +71,9 @@ function NYTimesComponent() {
                       handleOnClick(book.primary_isbn13, book.title)
                     }
                   ></img>
-                  <div className="tooltip">{book.description}</div>
+                  {displayTooltip && (
+                    <div className="tooltip">{book.description}</div>
+                  )}
                 </div>
               );
             })}
@@ -82,10 +84,16 @@ function NYTimesComponent() {
   }
 
   return (
-    <>
-      <h2>NY TIMES BEST SELLERS</h2>
+    <div
+      style={{
+        height: nytimesComponentContainerHeight,
+        overflowY: nytComponentContainerOverflowY,
+      }}
+      className="nytimes-component-container"
+    >
+      <h4 className="nytHeader">NY TIMES BEST SELLERS</h4>
       {renderBooks()}
-    </>
+    </div>
   );
 }
 
