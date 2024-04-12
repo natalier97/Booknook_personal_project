@@ -87,7 +87,7 @@ export const userLogout = async () => {
 };
 
 ////////////////////////////////////
-//// BOOK_APP django stuff ////
+//// BOOK_APP & API CALLS django stuff ////
 /////////////////////////////////
 export const book_from_db = async (book_name) => {
   const token = localStorage.getItem("token");
@@ -96,7 +96,7 @@ export const book_from_db = async (book_name) => {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
 
-    // console.log("Book NAME", book_name)
+    console.log("Book NAME", book_name)
     let response = await api.get(`books/user/${book_name}/`);
 
     console.log("BOOK_FROM_DB FUNC", response.data);
@@ -117,14 +117,29 @@ export const book_from_db = async (book_name) => {
 };
 
 export const google_api_call = async (book_name) => {
+    console.log("Book NAME", book_name);
+
   let response = await api.get(`books/nonuser/${book_name}/`);
-  console.log("GOOGLE_API_CALL FUNC", response.data);
+  console.log("GOOGLE_API_CALL utilities", response.data);
   if ((response.status = 200)) {
     return response.data;
   } else {
     return null;
   }
 };
+
+
+export const ny_times_api_call = async () => {
+  let response = await api.get(`books/nytimes/`);
+  console.log("NY TIMES API CALL-utilities", response.data);
+  // response.data should return an object ##where key = list_name & value is array of bookObjs
+  if ((response.status = 200)) {
+    return response.data;
+  } else {
+    return null;
+  }
+};
+
 
 
 
@@ -209,14 +224,4 @@ export const addremove_to_a_shelf = async (shelf_name, book_info_obj) => {
   }
 };
 
-  // request_body = {
-    //   title,
-    //   author,
-    //   description,
-    //   page_count,
-    //   genre,
-    //   img_url,
-    // }; //isbn, api_rating, id
-
-    // /* conditionally adding isbn, api_rating, and/or id*/
-    // if()
+ 

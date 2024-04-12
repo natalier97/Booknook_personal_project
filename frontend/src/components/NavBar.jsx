@@ -18,7 +18,8 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
     setSearchValue(event.target.value);
   }
 
-  function navigateToSearchPage() {
+  function navigateToSearchPage(event) {
+     event.preventDefault();
     let route = `/searchresults/${searchValue}/`;
     navigate(route);
     setSearchValue("");
@@ -36,7 +37,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
     <nav style={{ height: "5vh" }}>
       <Navbar
         id="navbar"
-         style={{ position: "fixed", width: "100%" }}
+        style={{ position: "fixed", width: "100%" }}
         sticky="top"
         expand="lg"
         className="bg-body-tertiary"
@@ -49,7 +50,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" navbarScroll>
               <Nav.Link as={Link} to="/homePage/">
-                Home :){" "}
+                Home{" "}
               </Nav.Link>
 
               <Nav.Link href="#action2">
@@ -79,7 +80,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
                 </Nav.Link>
               ) : null}
             </Nav>
-            <Form className="d-flex">
+            <Form onSubmit={navigateToSearchPage} className="d-flex">
               <Form.Control
                 type="search"
                 placeholder="Search"

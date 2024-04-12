@@ -11,7 +11,7 @@ class Book(models.Model):
     api_rating = models.DecimalField(null=True, blank=True, max_digits=2, decimal_places=1)
     page_count = models.PositiveIntegerField()
     genre = ArrayField(models.CharField(max_length=100), size=4, null=True, blank=True)
-    img_url = models.CharField()
+    img_url = models.TextField()
     isbn = models.CharField(null=True)
     #book_ratings --> each book can have many book_ratings
     #book_on_shelf ---> many books for many shelves

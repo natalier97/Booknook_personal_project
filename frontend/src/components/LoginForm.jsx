@@ -34,6 +34,7 @@ function LoginForm() {
   /////////////////////////////////
   async function handleSignUp(event){
     event.preventDefault();
+    
     let user = await userSignUp(emailInput, passwordInput, firstNameInput)
     setUser(user)
     //  setUser({ email: emailInput, user })

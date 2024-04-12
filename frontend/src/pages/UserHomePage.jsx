@@ -30,7 +30,7 @@ function renderCurrReadCards(){
   console.log("userhomepage --- ARRAY", currentlyReadingArr);
 
     return currentlyReadingArr.map((aBook) => {
-  console.log("userhomepage --- A BOOK", aBook);
+  console.log("userhomepage ---currentlyreading A BOOK", aBook);
 
       return (
         <div className="homePageBookCoverImgAndDescriptionContainer">

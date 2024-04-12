@@ -5,8 +5,6 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import BookCard from "../components/Card";
-import { book_from_db, google_api_call } from "../utilities";
 import ButtonAddRemove from "../components/ButtonAddRemove";
 //bootstrap stuff
 

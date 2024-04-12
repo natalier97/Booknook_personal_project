@@ -12,7 +12,7 @@ from user_app.views import TokenReq
 from book_app.serializers import Book, Book_rating, BookRatingSerializer, BookSerializer
 from shelves_app.serializers import Shelves, ShelvesSerializer
 
-from .api_calls import env, fetch_book_from_google_books_api
+from .api_calls import env, fetch_book_from_google_books_api, fetch_book_from_ny_times_api
          ###returns --->  return (json_response.get("items")[0]['volumeInfo'].get('description'))
         
 
@@ -59,11 +59,22 @@ class Search_for_book(APIView):
             return Response(book, status=HTTP_200_OK)
         else:
             books_array = fetch_book_from_google_books_api(book_title_or_author)            
-            if len(books_array):
+            if books_array:
                 return Response(books_array, status=HTTP_200_OK)
             else: 
                 return Response(None, status=HTTP_404_NOT_FOUND)
     
 
 
+
+# 'books/nytimes/'
+class NY_times_API(APIView):
+    def get(self, request):
+        info = fetch_book_from_ny_times_api()
+        ##where key = list_name & value is array of bookObjs
+        if info:
+            return Response(info, status=HTTP_200_OK)
+        else:
+            return Response(None, status=HTTP_404_NOT_FOUND)
+            
     
