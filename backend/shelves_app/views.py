@@ -21,7 +21,7 @@ class All_Shelves(TokenReq):
     ## view all shelf names
     def get(self, request):
         book_user = request.user ##user email/username
-        print("DJ-book user:", book_user)
+        print("allShelves GET view --book user:", book_user)
         all_shelves = Shelves.objects.filter(user = book_user)
         if all_shelves.exists():
             ser_shelves = ShelvesSerializer(all_shelves, many=True) #['id','shelf_name', 'book']
@@ -36,13 +36,21 @@ class All_Shelves(TokenReq):
     def post(self, request): 
         ##request coming in will have: 'shelf_name' && 'user' bc tokenReq
         data = request.data.copy()
-        data['user'] = request.data.user.id
-        ser_shelf = AShelfSerializer(data=data) #['id', 'shelf_name']
+        book_user = User.objects.get(id = request.user.id)
+        shelf_info = data
+
+        print("allShelves POST view ---book user:", book_user)
+        print("allShelves POST view ---shelf info:", data)
+
+
+        ser_shelf = AShelfSerializer(data=shelf_info) #['id', 'shelf_name'] data=data
+
+
         if ser_shelf.is_valid():
-            ser_shelf.save()
+            new_shelf = ser_shelf.save(user=book_user)
             return Response(ser_shelf.data, status=HTTP_201_CREATED)
         else:
-            print(ser_shelf.errrors)
+            print(ser_shelf.errors)
             return Response(ser_shelf.errors, status=HTTP_400_BAD_REQUEST)
 
     ##update shelf name?
@@ -99,7 +107,10 @@ class A_Shelf(TokenReq):
 
     ##delete shelf
     def delete(self, request, shelf_name):
-        pass
+        book_user = request.user
+        shelf = get_object_or_404(Shelves, shelf_name=shelf_name, user=book_user.id)
+        shelf.delete()
+        return Response({"message": f"{shelf_name} shelf deleted successfully"}, status=HTTP_204_NO_CONTENT)
 
 
 

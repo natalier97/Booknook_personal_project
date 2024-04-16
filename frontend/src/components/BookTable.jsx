@@ -1,8 +1,15 @@
-import {useOutletContext, useNavigate} from "react-router-dom"
+import {useOutletContext, useNavigate, useParams} from "react-router-dom"
+import { delete_a_shelf } from "../utilities";
 
 //bootstrap
 import Table from "react-bootstrap/Table";
-import { useState } from "react";
+import Button from "react-bootstrap/esm/Button";
+
+
+
+
+
+
 
 function BookTable({shelfArray}) {
   //  #[{"id", "shelf_name", "book"}. {shelf_obj}];
@@ -10,6 +17,15 @@ function BookTable({shelfArray}) {
 
   let { myshelves, aBookInfo, setABookInfo } = useOutletContext();
   let navigate = useNavigate();
+  const { shelfName } = useParams();
+   let baseShelves = [
+     "currently reading",
+     "read",
+     "favorites",
+     "want to read",
+     ":shelfName",
+   ];
+
 
   function navigateToBookPage(book_title, bookInfo) {
     setABookInfo(bookInfo);
@@ -22,6 +38,8 @@ function BookTable({shelfArray}) {
     let tempAllBooks = []; //--> array of book objs
     let bookIdSet = new Set();
     let bookShelfObj = {}; //object where the book is le key & value = shelves array
+   
+    
 
     for (let shelf of shelfArray) {
       for (let bookObj of shelf.book) {
@@ -70,6 +88,18 @@ function BookTable({shelfArray}) {
     });
   }
 
+ function navigateToBookShelf() {
+   let route = `/myBooksPage/:shelfName/`;
+   navigate(route);
+ }
+
+  async function handleDeleteButton(shelfName){
+    let response = await delete_a_shelf(shelfName);
+    navigateToBookShelf();
+    window.location.reload();
+    console.log("BOOK TABLE", response)
+  }
+
   return (
     <Table responsive>
       <thead>
@@ -84,7 +114,17 @@ function BookTable({shelfArray}) {
           <th className="books-table-th">ratings</th>
         </tr>
       </thead>
-      <tbody>{renderTableElems()}</tbody>
+
+      <tbody>
+        {renderTableElems()}
+        {baseShelves.includes(shelfName) ? null : (
+          <tr>
+            <Button variant="outline-danger" size="sm" onClick={() => handleDeleteButton(shelfName)}>
+              delete shelf
+            </Button>
+          </tr>
+        )}
+      </tbody>
     </Table>
   );
 }

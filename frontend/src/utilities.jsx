@@ -196,15 +196,15 @@ export const view_a_shelf = async (shelf_name) => {
 };
 
 ///----------------creating a new shelf /////////////////
-export const create_a_shelf = async () => {
+export const create_a_shelf = async (shelf_name) => {
   const token = localStorage.getItem("token");
   if (token) {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
 
     //response body {}
-    let response = await api.post(`shelves/as/allshelves/`);
+    let response = await api.post(`shelves/as/allshelves/`,{shelf_name});
 
-    if ((response.status = 200)) {
+    if ((response.status = 201)) {
       // console.log("view+all+shelves RESPONSE = 200", response.data);
       return response.data;
     } else {
@@ -214,10 +214,40 @@ export const create_a_shelf = async () => {
   }
   //no token found
   else {
-    console.log("cant create all_ shelf -no token in local storage");
+    console.log("cant create a shelf -no token in local storage");
     return null;
   }
 };
+
+
+///----------------DELETING a shelf /////////////////
+
+
+export const delete_a_shelf = async (shelf_name) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Token ${token}`;
+
+    //response body {}
+    let response = await api.delete(`/shelves/${shelf_name}/`);
+
+    if ((response.status = 204)) {
+      console.log("DELETE A SHELF RESPONSE.DATA", response.data);
+      return response.data;
+    } else {
+      
+      return null;
+    }
+  }
+  //no token found
+  else {
+    console.log("cant delete all_ shelf -no token in local storage");
+    return null;
+  }
+};
+
+
+
 
 ////////////////////////////////////////
 //// ADDING/REMOVING BOOK TO A SHELF ////
