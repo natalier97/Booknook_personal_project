@@ -49,6 +49,7 @@ function LoginForm() {
     event.preventDefault();
     let user = await userLogin(emailInput, passwordInput);
     setUser(user);
+    window.location.reload();
     console.log(user);
   }
 

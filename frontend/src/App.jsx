@@ -5,6 +5,7 @@ import {
   useLoaderData,
   useNavigate,
   useLocation,
+  useParams,
 } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./components/NavBar";
@@ -37,6 +38,32 @@ function App() {
     view_shelves();
     fetch_ny_times_data();
   }, []);
+
+
+///////////////////----------HANDLING NO USER INFORMATION------------------
+   const navigate = useNavigate();
+   const location = useLocation();
+   const {shelfName} = useParams();
+
+
+  useEffect(() => {
+    let nullUserUrls = [
+      "/homePage/",
+      "/myBooksPage/:shelfName/",
+      `/myBooksPage/${shelfName}/`,
+    ]; // should redirect to landing page if logged out
+
+    // notAllowed=True if person is logged out and trying to access member-only urls
+    let notAllowed = nullUserUrls.includes(location.pathname);
+    console.log("notAllowed ", notAllowed);
+
+    if (!user && notAllowed) {
+      console.log("redirect to landing page");
+      // we redirect because the user needs to log in before they do anything else
+      navigate("/");
+    }
+  }, [user, location.pathname]);
+
 
 
 
