@@ -18,6 +18,7 @@ function BookTable({shelfArray}) {
   let { myshelves, aBookInfo, setABookInfo } = useOutletContext();
   let navigate = useNavigate();
   const { shelfName } = useParams();
+  const decodedShelfName = decodeURIComponent(shelfName);
    let baseShelves = [
      "currently reading",
      "read",

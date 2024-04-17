@@ -45,14 +45,19 @@ function App() {
    const location = useLocation();
    const {shelfName} = useParams();
 
+  // let joinedShelfName = shelfName.join("%20")
 
   useEffect(() => {
     let nullUserUrls = [
       "/homePage/",
       "/myBooksPage/:shelfName/",
-      `/myBooksPage/${shelfName}/`,
+      `/myBooksPage/${shelfName ? shelfName.split(" ").join("%20") : null}/`,
     ]; // should redirect to landing page if logged out
-
+    console.log(
+      "USEFFECT-APP.JSX",
+      location.pathname,
+      shelfName ? shelfName.split(" ").join("%20") : null
+    );
     // notAllowed=True if person is logged out and trying to access member-only urls
     let notAllowed = nullUserUrls.includes(location.pathname);
     console.log("notAllowed ", notAllowed);

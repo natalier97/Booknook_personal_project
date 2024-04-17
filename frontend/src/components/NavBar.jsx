@@ -20,6 +20,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
 
   function navigateToSearchPage(event) {
      event.preventDefault();
+     
     let route = `/searchresults/${searchValue}/`;
     navigate(route);
     setSearchValue("");
@@ -53,7 +54,7 @@ function NavBar({ user, setUser, searchValue, setSearchValue }) {
                 Home{" "}
               </Nav.Link>
 
-              <Nav.Link href="#action2">
+              <Nav.Link as={Link} to="/" >
                 {user ? user.user : "Sign Up/Log In"}{" "}
               </Nav.Link>
               <NavDropdown title="" id="navbarScrollingDropdown">

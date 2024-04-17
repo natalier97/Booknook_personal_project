@@ -15,7 +15,9 @@ function NYTimesComponent({
   nytimesComponentContainerHeight,
   overflowX,
   nytComponentContainerOverflowY
-}) {
+}) 
+
+{
   // should return an object ##where key = list_name & value is array of bookObjs
   let { nytimesListObj, user, setABookInfo } = useOutletContext();
   let navigate = useNavigate();
@@ -46,6 +48,20 @@ function NYTimesComponent({
     navigateToBookPage(title, book_info);
   }
 
+  //////TOOLTIP STUFF
+  // function TriggerExample() {
+  // const renderTooltip = (props, description) => {
+  //   console.log('TOOLTIP', description)
+  //   if (!description) return null; // Add this check to ensure description is not undefined
+  //   return (
+  //     <Tooltip id={`tooltip-${description}`} {...props}>
+  //       {description}
+  //     </Tooltip>
+  //   );
+  // };
+
+  //   )
+
   function renderBooks() {
     return Object.keys(nytimesListObj).map((key, index) => {
       return (
@@ -61,18 +77,30 @@ function NYTimesComponent({
               console.log("RENDER BOOKS FUNCT");
               return (
                 <div key={index} className="nytimes-cover-tooltip-container">
-                  <img
-                    style={{ height: bookcoverHeight }}
-                    className="nytimes-cover-pic"
-                    tabIndex="0"
-                    role="button"
-                    src={book.book_image}
-                    onClick={() =>
-                      handleOnClick(book.primary_isbn13, book.title)
-                    }
-                  ></img>
+
+                  
                   {displayTooltip && (
-                    <div className="tooltip">{book.description}</div>
+                    <OverlayTrigger
+                      key={index}
+                      placement="left"
+                      // delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id={`tooltip-${book.primary_isbn13}`}>
+                          {book.description}
+                        </Tooltip>
+                      }
+                    >
+                      <img
+                        style={{ height: bookcoverHeight }}
+                        className="nytimes-cover-pic"
+                        tabIndex="0"
+                        role="button"
+                        src={book.book_image}
+                        onClick={() =>
+                          handleOnClick(book.primary_isbn13, book.title)
+                        }
+                      />
+                    </OverlayTrigger>
                   )}
                 </div>
               );
@@ -95,7 +123,7 @@ function NYTimesComponent({
       {renderBooks()}
     </div>
   );
-}
+} 
 
 export default NYTimesComponent;
 
@@ -109,3 +137,7 @@ export default NYTimesComponent;
   // ["books"] ---> an array of book objects in this list
   //     #         "author", "book_image", "description", "title", "rank"(int), "primary_isbn13"
 
+
+  //  {
+  //    displayTooltip && <div className="tooltip">{book.description}</div>;
+  //  }

@@ -53,7 +53,7 @@ function SearchResultsPage() {
         </div>
       );
     })
-  }
+  };
 
   return (
     <>

@@ -190,7 +190,6 @@ margin-bottom: 5vh;
 /* contains the .tooltip */
 .nytimes-cover-tooltip-container{
 position: relative;
-  /* display: inline-block; */
 }
 
 .tooltip {
@@ -203,9 +202,9 @@ position: relative;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  top: 50%;
-  left: 80%;
-  transform: translateX(-50%, -50%);
+  top: 10%;
+  left: 10%;
+  /* transform: translateX(-80%, -50%); */
   opacity: 0.5;
   transition: opacity 0.2s;
 }

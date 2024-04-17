@@ -17,6 +17,8 @@ function ShelfLinksCard() {
   let { myshelves, setMyShelves } = useOutletContext();
 
   function navigateToBookShelf(shelfName) {
+    // const encodedShelfName = encodeURIComponent(shelfName);
+
     let route = `/myBooksPage/${shelfName}/`;
     navigate(route);
   }
